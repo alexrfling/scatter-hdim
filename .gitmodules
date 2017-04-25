@@ -1,0 +1,3 @@
+[submodule "scatter/inst/htmlwidgets/lib/scatter"]
+	path = scatter/inst/htmlwidgets/lib/scatter
+	url = https://github.com/alexrfling/scatter
