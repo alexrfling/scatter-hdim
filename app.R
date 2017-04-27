@@ -23,7 +23,7 @@ ui <- fluidPage(
 
             radioButtons(inputId = 'rowNamesIndex',
                          label = 'Row names index:',
-                         choices = c(1, 'none')),
+                         choices = c('none', 1)),
 
             htmlOutput(outputId = 'xKeyOutput'),
 
