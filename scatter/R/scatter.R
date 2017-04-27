@@ -10,3 +10,38 @@
 #   Build and Reload Package:  'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
+scatter <- function (matrix, width = NULL, height = NULL, xKey, yKey, labelKey, skipTransitions) {
+
+    # read the matrix
+    data <- matrix
+    origColnames <- colnames(data)
+    data <- cbind(rownames(data), data)
+    colnames(data) <- c('key', origColnames)
+
+    options <- list(
+        id = 'scatter',
+        xKey = xKey,
+        yKey = yKey,
+        labelKey = labelKey,
+        skipTransitions = skipTransitions
+    )
+
+    # pass the data and settings using 'x'
+    x <- list(
+        data = data,
+        options = options
+    )
+
+    htmlwidgets::createWidget('scatter', x, width = width, height = height)
+}
+
+#' @export
+scatterOutput <- function (outputId, width = '100%', height = '400px') {
+    shinyWidgetOutput(outputId, 'scatter', width, height, package = 'scatter')
+}
+
+#' @export
+renderScatter <- function (expr, env = parent.frame(), quoted = FALSE) {
+    if (!quoted) { expr <- substitute(expr) } # force quoted
+    shinyRenderWidget(expr, scatterOutput, env, quoted = TRUE)
+}
