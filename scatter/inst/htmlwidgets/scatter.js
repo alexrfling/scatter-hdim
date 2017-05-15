@@ -17,8 +17,8 @@ HTMLWidgets.widget({
                 var rKey = x.options.rKey;
                 var fKeyCategorical = x.options.fKeyCategorical;
                 var fKeyContinuous = x.options.fKeyContinuous;
-                var categorical = (x.options.categorical === 'TRUE');
-                var skipTransitions = (x.options.skipTransitions === 'TRUE');
+                var categorical = x.options.categorical;
+                var skipTransitions = x.options.skipTransitions;
                 var loColor = x.options.loColor;
                 var hiColor = x.options.hiColor;
 

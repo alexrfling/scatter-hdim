@@ -37,7 +37,7 @@ ui <- fluidPage(
 
             checkboxInput(inputId = 'categorical',
                           label = 'categorical',
-                          value = TRUE),
+                          value = FALSE),
 
             selectInput(inputId = 'loColor',
                         label = 'low color',
@@ -49,9 +49,9 @@ ui <- fluidPage(
                         choices = COLORS,
                         selected = '#109618'),
 
-            checkboxInput(inputId = 'skip',
+            checkboxInput(inputId = 'skipTransitions',
                           label = 'skipTransitions',
-                          value = TRUE)
+                          value = FALSE)
 
         )
     ),
@@ -148,7 +148,7 @@ server <- function (input, output) {
             categorical = input$categorical,
             loColor = input$loColor,
             hiColor = input$hiColor,
-            skipTransitions = input$skip)
+            skipTransitions = input$skipTransitions)
     })
 }
 
