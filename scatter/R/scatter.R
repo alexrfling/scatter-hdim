@@ -10,7 +10,16 @@
 #   Build and Reload Package:  'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
-scatter <- function (matrix, width = NULL, height = NULL, xKey, yKey, labelKey, skipTransitions) {
+scatter <- function (matrix, width = NULL, height = NULL,
+    xKey,
+    yKey,
+    rKey,
+    fKeyCategorical,
+    fKeyContinuous,
+    categorical,
+    loColor,
+    hiColor,
+    skipTransitions) {
 
     # read the matrix
     data <- matrix
@@ -22,7 +31,12 @@ scatter <- function (matrix, width = NULL, height = NULL, xKey, yKey, labelKey, 
         id = 'scatter',
         xKey = xKey,
         yKey = yKey,
-        labelKey = labelKey,
+        rKey = rKey,
+        fKeyCategorical = fKeyCategorical,
+        fKeyContinuous = fKeyContinuous,
+        categorical = categorical,
+        loColor = loColor,
+        hiColor = hiColor,
         skipTransitions = skipTransitions
     )
 

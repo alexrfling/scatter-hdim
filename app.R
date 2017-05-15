@@ -29,6 +29,26 @@ ui <- fluidPage(
 
             htmlOutput(outputId = 'yKeyOutput'),
 
+            htmlOutput(outputId = 'rKeyOutput'),
+
+            htmlOutput(outputId = 'fKeyCategoricalOutput'),
+
+            htmlOutput(outputId = 'fKeyContinuousOutput'),
+
+            checkboxInput(inputId = 'categorical',
+                          label = 'categorical',
+                          value = TRUE),
+
+            selectInput(inputId = 'loColor',
+                        label = 'low color',
+                        choices = COLORS,
+                        selected = '#3366cc'),
+
+            selectInput(inputId = 'hiColor',
+                        label = 'high color',
+                        choices = COLORS,
+                        selected = '#109618'),
+
             checkboxInput(inputId = 'skip',
                           label = 'skipTransitions',
                           value = TRUE)
@@ -95,13 +115,40 @@ server <- function (input, output) {
                     choices = colnames(df()))
     })
 
+    output$rKeyOutput <- renderUI({
+        selectInput(inputId = 'rKey',
+                    label = 'r dimension',
+                    choices = colnames(df()))
+    })
+
+    output$fKeyCategoricalOutput <- renderUI({
+        selectInput(inputId = 'fKeyCategorical',
+                    label = 'color dimension (categorical)',
+                    choices = colnames(df()))
+    })
+
+    output$fKeyContinuousOutput <- renderUI({
+        selectInput(inputId = 'fKeyContinuous',
+                    label = 'color dimension (continuous)',
+                    choices = colnames(df()))
+    })
+
     output$scatter <- renderScatter({
 
-        if (is.null(df())) {
+        if (is.null(df()) || input$xKey == '') {
             return(NULL)
         }
 
-        scatter(df(), width = '100%', height = '100%', xKey = input$xKey, yKey = input$yKey, labelKey = 'income', skipTransitions = input$skip)
+        scatter(df(), width = '100%', height = '100%',
+            xKey = input$xKey,
+            yKey = input$yKey,
+            rKey = input$rKey,
+            fKeyCategorical = input$fKeyCategorical,
+            fKeyContinuous = input$fKeyContinuous,
+            categorical = input$categorical,
+            loColor = input$loColor,
+            hiColor = input$hiColor,
+            skipTransitions = input$skip)
     })
 }
 
