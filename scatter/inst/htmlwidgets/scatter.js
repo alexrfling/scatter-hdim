@@ -10,6 +10,11 @@ HTMLWidgets.widget({
 
         var scatter = new Scatter(el.id);
 
+        // booleans converted from R may be true, false, 'TRUE', or 'FALSE'
+        function getBool (bool) {
+            return (bool === true || bool === 'TRUE');
+        }
+
         return {
             renderValue: function (x) {
                 var xKey = x.options.xKey;
@@ -17,12 +22,14 @@ HTMLWidgets.widget({
                 var rKey = x.options.rKey;
                 var fKeyCategorical = x.options.fKeyCategorical;
                 var fKeyContinuous = x.options.fKeyContinuous;
-                var categorical = x.options.categorical;
-                var skipTransitions = x.options.skipTransitions;
+                var categorical = getBool(x.options.categorical);
                 var loColor = x.options.loColor;
                 var hiColor = x.options.hiColor;
+                var noTransition = getBool(x.options.noTransition);
+                var hardReload = getBool(x.options.hardReload);
+                var newData = getBool(x.options.newData);
 
-                if (!scatter.data) {
+                if (!scatter.data || hardReload) {
                     var data = HTMLWidgets.dataframeToD3(x.data);
                     var options = {
                         height: height,
@@ -34,10 +41,15 @@ HTMLWidgets.widget({
                         categorical: categorical,
                         loColor: loColor,
                         hiColor: hiColor,
-                        skipTransitions: skipTransitions
+                        noTransition: noTransition
                     };
 
                     scatter.initialize(data, options);
+
+                } else if (newData) {
+                    var data = HTMLWidgets.dataframeToD3(x.data);
+
+                    scatter.updateData(data, xKey, yKey, rKey, fKeyCategorical, fKeyContinuous);
 
                 } else if (xKey !== scatter.xKey) {
 
@@ -67,10 +79,6 @@ HTMLWidgets.widget({
 
                     scatter.updateColors(loColor, hiColor);
 
-                } else {
-                    var data = HTMLWidgets.dataframeToD3(x.data);
-
-                    scatter.updateData(data);
                 }
             },
 

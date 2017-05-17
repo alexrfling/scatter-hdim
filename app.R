@@ -49,10 +49,13 @@ ui <- fluidPage(
                         choices = COLORS,
                         selected = '#109618'),
 
-            checkboxInput(inputId = 'skipTransitions',
-                          label = 'skipTransitions',
-                          value = FALSE)
+            checkboxInput(inputId = 'noTransition',
+                          label = 'Skip transition',
+                          value = FALSE),
 
+            checkboxInput(inputId = 'hardReload',
+                          label = 'Hard reload',
+                          value = FALSE)
         )
     ),
 
@@ -100,6 +103,7 @@ server <- function (input, output) {
             return(df)
         }
 
+        newDatasetUploaded <<- TRUE
         return(removeColsWithNas(getDataFrame(input$file, input$rowNamesIndex)))
     })
 
@@ -135,20 +139,39 @@ server <- function (input, output) {
 
     output$scatter <- renderScatter({
 
-        if (is.null(df()) || input$xKey == '') {
+        df = df()
+
+        if (is.null(df)) {
             return(NULL)
         }
 
-        scatter(df(), width = '100%', height = '100%',
-            xKey = input$xKey,
-            yKey = input$yKey,
-            rKey = input$rKey,
-            fKeyCategorical = input$fKeyCategorical,
-            fKeyContinuous = input$fKeyContinuous,
-            categorical = input$categorical,
-            loColor = input$loColor,
-            hiColor = input$hiColor,
-            skipTransitions = input$skipTransitions)
+        keys = colnames(df)
+
+        if (!(input$xKey %in% keys) ||
+            !(input$yKey %in% keys) ||
+            !(input$rKey %in% keys) ||
+            !(input$fKeyCategorical %in% keys) ||
+            !(input$fKeyContinuous %in% keys)) {
+            return(NULL)
+        }
+
+        newData = newDatasetUploaded
+        newDatasetUploaded <<- FALSE
+
+        scatter(df,
+                width = '100%',
+                height = '100%',
+                xKey = input$xKey,
+                yKey = input$yKey,
+                rKey = input$rKey,
+                fKeyCategorical = input$fKeyCategorical,
+                fKeyContinuous = input$fKeyContinuous,
+                categorical = input$categorical,
+                loColor = input$loColor,
+                hiColor = input$hiColor,
+                noTransition = input$noTransition,
+                hardReload = input$hardReload,
+                newData = newData)
     })
 }
 

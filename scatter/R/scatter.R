@@ -10,16 +10,20 @@
 #   Build and Reload Package:  'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
-scatter <- function (matrix, width = NULL, height = NULL,
-    xKey,
-    yKey,
-    rKey,
-    fKeyCategorical,
-    fKeyContinuous,
-    categorical,
-    loColor,
-    hiColor,
-    skipTransitions) {
+scatter <- function (matrix,
+                     width = NULL,
+                     height = NULL,
+                     xKey,
+                     yKey,
+                     rKey,
+                     fKeyCategorical,
+                     fKeyContinuous,
+                     categorical = TRUE,
+                     loColor = '#3366cc',
+                     hiColor = '#109618',
+                     noTransition = FALSE,
+                     hardReload = FALSE,
+                     newData = FALSE) {
 
     # read the matrix
     data <- matrix
@@ -37,7 +41,9 @@ scatter <- function (matrix, width = NULL, height = NULL,
         categorical = categorical,
         loColor = loColor,
         hiColor = hiColor,
-        skipTransitions = skipTransitions
+        noTransition = noTransition,
+        hardReload = hardReload,
+        newData = newData
     )
 
     # pass the data and settings using 'x'
