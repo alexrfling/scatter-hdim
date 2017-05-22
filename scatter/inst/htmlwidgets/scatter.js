@@ -8,7 +8,7 @@ HTMLWidgets.widget({
 
     factory: function (el, width, height) {
 
-        var scatter = new Scatter(el.id);
+        var chart = new Scatter(el.id);
 
         // booleans converted from R may be true, false, 'TRUE', or 'FALSE'
         function getBool (bool) {
@@ -29,9 +29,10 @@ HTMLWidgets.widget({
                 var hardReload = getBool(x.options.hardReload);
                 var newData = getBool(x.options.newData);
 
-                if (!scatter.data || hardReload) {
+                if (!chart.data || hardReload) {
                     var data = HTMLWidgets.dataframeToD3(x.data);
                     var options = {
+                        width: width,
                         height: height,
                         xKey: xKey,
                         yKey: yKey,
@@ -44,47 +45,46 @@ HTMLWidgets.widget({
                         noTransition: noTransition
                     };
 
-                    scatter.initialize(data, options);
+                    chart.initialize(data, options);
 
                 } else if (newData) {
                     var data = HTMLWidgets.dataframeToD3(x.data);
 
-                    scatter.updateData(data, xKey, yKey, rKey, fKeyCategorical, fKeyContinuous);
+                    chart.updateData(data, xKey, yKey, rKey, fKeyCategorical, fKeyContinuous);
 
-                } else if (xKey !== scatter.xKey) {
+                } else if (xKey !== chart.xKey) {
 
-                    scatter.updateXKey(xKey);
+                    chart.updateXKey(xKey);
 
-                } else if (yKey !== scatter.yKey) {
+                } else if (yKey !== chart.yKey) {
 
-                    scatter.updateYKey(yKey);
+                    chart.updateYKey(yKey);
 
-                } else if (rKey !== scatter.rKey) {
+                } else if (rKey !== chart.rKey) {
 
-                    scatter.updateRKey(rKey);
+                    chart.updateRKey(rKey);
 
-                } else if (fKeyCategorical !== scatter.fKeyCategorical) {
+                } else if (fKeyCategorical !== chart.fKeyCategorical) {
 
-                    scatter.updateFKeyCategorical(fKeyCategorical);
+                    chart.updateFKeyCategorical(fKeyCategorical);
 
-                } else if (fKeyContinuous !== scatter.fKeyContinuous) {
+                } else if (fKeyContinuous !== chart.fKeyContinuous) {
 
-                    scatter.updateFKeyContinuous(fKeyContinuous);
+                    chart.updateFKeyContinuous(fKeyContinuous);
 
-                } else if (categorical !== scatter.categorical) {
+                } else if (categorical !== chart.categorical) {
 
-                    scatter.updateColorScaling(categorical);
+                    chart.updateColorScaling(categorical);
 
-                } else if (loColor !== scatter.loColor || hiColor !== scatter.hiColor) {
+                } else if (loColor !== chart.loColor || hiColor !== chart.hiColor) {
 
-                    scatter.updateColors(loColor, hiColor);
+                    chart.updateColors(loColor, hiColor);
 
                 }
             },
 
             resize: function (width, height) {
-                // Scatter automatically resizes width
-                scatter.resize(height);
+                chart.resize(width, height);
             }
         };
     }
