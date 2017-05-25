@@ -34,8 +34,6 @@ HTMLWidgets.widget({
                     var options = {
                         width: width,
                         height: height,
-                        xKey: xKey,
-                        yKey: yKey,
                         rKey: rKey,
                         fKeyCategorical: fKeyCategorical,
                         fKeyContinuous: fKeyContinuous,
@@ -45,12 +43,18 @@ HTMLWidgets.widget({
                         noTransition: noTransition
                     };
 
-                    chart.initialize(data, options);
+                    chart.initialize(data, xKey, yKey, options);
 
                 } else if (newData) {
                     var data = HTMLWidgets.dataframeToD3(x.data);
+                    var options = {
+                        rKey: rKey,
+                        fKeyCategorical: fKeyCategorical,
+                        fKeyContinuous: fKeyContinuous,
+                        noTransition: noTransition
+                    };
 
-                    chart.updateData(data, xKey, yKey, rKey, fKeyCategorical, fKeyContinuous);
+                    chart.updateData(data, xKey, yKey, options);
 
                 } else if (xKey !== chart.xKey) {
 
