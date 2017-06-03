@@ -24,7 +24,9 @@ HTMLWidgets.widget({
                 var fKeyContinuous = x.options.fKeyContinuous;
                 var categorical = getBool(x.options.categorical);
                 var loColor = x.options.loColor;
+                var mdColor = x.options.mdColor;
                 var hiColor = x.options.hiColor;
+                var numColors = x.options.numColors;
                 var noTransition = getBool(x.options.noTransition);
                 var hardReload = getBool(x.options.hardReload);
                 var newData = getBool(x.options.newData);
@@ -80,9 +82,13 @@ HTMLWidgets.widget({
 
                     chart.updateColorScaling(categorical);
 
-                } else if (loColor !== chart.loColor || hiColor !== chart.hiColor) {
+                } else if (
+                    loColor !== chart.loColor ||
+                    mdColor !== chart.mdColor ||
+                    hiColor !== chart.hiColor ||
+                    numColors !== chart.numColors) {
 
-                    chart.updateColors(loColor, hiColor);
+                    chart.updateColors(loColor, mdColor, hiColor, numColors);
 
                 }
             },
