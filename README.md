@@ -41,7 +41,7 @@ Optional:
   * _numColors_ - the number of colors in the interpolation of _loColor_, _mdColor_, and _hiColor_ (default: `256`)
   * _categorical_ - if `TRUE`, the color of the points is determined by _fKeyCategorical_, otherwise it is determined by _fKeyContinuous_
   * _noTransition_ - if `TRUE`, the widget will render/update without transitions. Otherwise, the widget will render/update with transitions (default: `FALSE`)
-  * _hardReload_ - if `TRUE`, completely re-renders the scatter plot; otherwise, smoothly transitions the scatter plot (default: `FALSE`)
+  * _hardReload_ - if `TRUE`, completely re-renders the widget; otherwise, smoothly transitions the widget (default: `FALSE`)
   * _newData_ - if `TRUE`, updates all of _data_, _xKey_, _yKey_, _rKey_, _fKeyCategorical_, _fKeyContinuous_, and _noTransition_ at once. Otherwise, if the scatter plot has already been rendered once, these parameters are updated one at a time (default: `FALSE`)
 
 <a name='scatterOutput' href='#scatterOutput'>#</a> __scatterOutput__(_outputId_, _width_ = '100%', _height_ = '400px')
