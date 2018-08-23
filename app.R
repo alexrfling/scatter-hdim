@@ -49,9 +49,9 @@ ui <- fluidPage(
                         choices = COLORS,
                         selected = '#109618'),
 
-            checkboxInput(inputId = 'noTransition',
-                          label = 'Skip transition',
-                          value = FALSE),
+            checkboxInput(inputId = 'enableTransitions',
+                          label = 'Enable transitions',
+                          value = TRUE),
 
             checkboxInput(inputId = 'hardReload',
                           label = 'Hard reload',
@@ -169,7 +169,7 @@ server <- function (input, output) {
                 categorical = input$categorical,
                 loColor = input$loColor,
                 hiColor = input$hiColor,
-                noTransition = input$noTransition,
+                enableTransitions = input$enableTransitions,
                 hardReload = input$hardReload,
                 newData = newData)
     })

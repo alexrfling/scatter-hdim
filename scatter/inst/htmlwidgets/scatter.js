@@ -27,7 +27,7 @@ HTMLWidgets.widget({
                 var mdColor = x.options.mdColor;
                 var hiColor = x.options.hiColor;
                 var numColors = x.options.numColors;
-                var noTransition = getBool(x.options.noTransition);
+                var enableTransitions = getBool(x.options.enableTransitions);
                 var hardReload = getBool(x.options.hardReload);
                 var newData = getBool(x.options.newData);
 
@@ -42,7 +42,7 @@ HTMLWidgets.widget({
                         categorical: categorical,
                         loColor: loColor,
                         hiColor: hiColor,
-                        noTransition: noTransition
+                        enableTransitions: enableTransitions
                     };
 
                     chart.initialize(data, xKey, yKey, options);
@@ -53,7 +53,7 @@ HTMLWidgets.widget({
                         rKey: rKey,
                         fKeyCategorical: fKeyCategorical,
                         fKeyContinuous: fKeyContinuous,
-                        noTransition: noTransition
+                        enableTransitions: enableTransitions
                     };
 
                     chart.updateData(data, xKey, yKey, options);

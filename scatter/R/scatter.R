@@ -23,7 +23,7 @@ scatter <- function (matrix,
                      mdColor = 'darkgrey',
                      hiColor = '#109618',
                      numColors = 256,
-                     noTransition = FALSE,
+                     enableTransitions = TRUE,
                      hardReload = FALSE,
                      newData = FALSE) {
 
@@ -45,7 +45,7 @@ scatter <- function (matrix,
         mdColor = mdColor,
         hiColor = hiColor,
         numColors = numColors,
-        noTransition = noTransition,
+        enableTransitions = enableTransitions,
         hardReload = hardReload,
         newData = newData
     )
